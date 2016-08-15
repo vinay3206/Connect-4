@@ -87,11 +87,11 @@ describe('Game', () => {
      game.playAtColWithValue(0,RED_TURN);
      game.playAtColWithValue(0,RED_TURN);
      game.playAtColWithValue(0,RED_TURN);
+     expect(game.gameHasFinishedVertically(0,0,RED_TURN)).toNotEqual(null);
+     expect(game.gameHasFinished(RED_TURN)).toEqual(true);
      expect(game.result).toIncludeKeys(['type','game']);
      expect(game.result.type).toEqual(RED_TURN);
      expect(game.result.game.length).toEqual(4);
-     expect(game.gameHasFinished(RED_TURN)).toEqual(true);
-     expect(game.gameHasFinishedVertically(0,0,RED_TURN)).toEqual(true);
    });
 
    it('should finish game horizontally', () => {
@@ -100,7 +100,39 @@ describe('Game', () => {
      game.playAtColWithValue(1,RED_TURN);
      game.playAtColWithValue(2,RED_TURN);
      game.playAtColWithValue(3,RED_TURN);
-     expect(game.gameHasFinishedHorizontally(0,0,RED_TURN)).toEqual(true);
+     expect(game.gameHasFinishedHorizontally(0,0,RED_TURN)).toNotEqual(null);
+     expect(game.gameHasFinished(RED_TURN)).toEqual(true);
+   });
+
+   it('should finish game diganolly accending', () => {
+     game.init();
+     game.playAtColWithValue(0,RED_TURN);
+     game.playAtColWithValue(1,YELLOW_TURN);
+     game.playAtColWithValue(1,RED_TURN);
+     game.playAtColWithValue(2,YELLOW_TURN);
+     game.playAtColWithValue(2,YELLOW_TURN);
+     game.playAtColWithValue(2,RED_TURN);
+     game.playAtColWithValue(3,YELLOW_TURN);
+     game.playAtColWithValue(3,YELLOW_TURN);
+     game.playAtColWithValue(3,YELLOW_TURN);
+     game.playAtColWithValue(3,RED_TURN);
+     expect(game.gameHasFinishedDiagonallyAsc(0,0,RED_TURN)).toNotEqual(null);
+     expect(game.gameHasFinished(RED_TURN)).toEqual(true);
+   });
+
+   it('should finish game diganolly decending', () => {
+     game.init();
+     game.playAtColWithValue(6,RED_TURN);
+     game.playAtColWithValue(5,YELLOW_TURN);
+     game.playAtColWithValue(5,RED_TURN);
+     game.playAtColWithValue(4,YELLOW_TURN);
+     game.playAtColWithValue(4,YELLOW_TURN);
+     game.playAtColWithValue(4,RED_TURN);
+     game.playAtColWithValue(3,YELLOW_TURN);
+     game.playAtColWithValue(3,YELLOW_TURN);
+     game.playAtColWithValue(3,YELLOW_TURN);
+     game.playAtColWithValue(3,RED_TURN);
+     expect(game.gameHasFinishedDiagonallyDesc(0,6,RED_TURN)).toNotEqual(null);
      expect(game.gameHasFinished(RED_TURN)).toEqual(true);
    });
  });
