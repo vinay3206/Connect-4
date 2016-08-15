@@ -12,7 +12,7 @@ export default function counter (state = initialState, action) {
 
   switch (action.type) {
     case NEW_GAME:
-      board.initiate();
+      board.init();
 
       return {
         ...initialState,
