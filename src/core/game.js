@@ -198,31 +198,31 @@ export default class Game {
   }
 
   gameHasFinished (value) {
-    let game;
+    let result;
 
     for (let row = 0; row < ROW_SIZE; row++) {
       for (let col = 0; col < COL_SIZE; col++) {
-        game = this.gameHasFinishedHorizontally(row, col, value);
-        if (game) {
-          this.updateResults(game, value);
+        result = this.gameHasFinishedHorizontally(row, col, value);
+        if (result) {
+          this.updateResults(result, value);
           return true;
         }
 
-        game = this.gameHasFinishedVertically(row, col, value);
-        if (game) {
-          this.updateResults(game, value);
+        result = this.gameHasFinishedVertically(row, col, value);
+        if (result) {
+          this.updateResults(result, value);
           return true;
         }
 
-        game = this.gameHasFinishedDiagonallyAsc(row, col, value);
-        if (game) {
-          this.updateResults(game, value);
+        result = this.gameHasFinishedDiagonallyAsc(row, col, value);
+        if (result) {
+          this.updateResults(result, value);
           return true;
         }
 
-        game = this.gameHasFinishedDiagonallyDesc(row, col, value);
-        if (game) {
-          this.updateResults(game, value);
+        result = this.gameHasFinishedDiagonallyDesc(row, col, value);
+        if (result) {
+          this.updateResults(result, value);
           return true;
         }
       }
@@ -240,8 +240,8 @@ export default class Game {
     return false;
   }
 
-  updateResults (game, type) {
-    game.forEach(item => {
+  updateResults (result, type) {
+    result.forEach(item => {
       const { row, col } = item;
       const pos = `${row}${col}`;
 
