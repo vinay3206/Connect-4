@@ -287,7 +287,7 @@ class App extends Component {
     // console.log(stage, `children: ${stage.children.length}`);
     this.init(game);
     return (
-      <div className="app-page page-home">
+      <div className="main-container">
       </div>
     );
   }
