@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import PIXI from 'pixi.js';
 
@@ -14,13 +14,13 @@ import { newGame, playWithRed, playWithYellow } from '../actions';
 // importing all game constats here
 import { NEW_GAME, PLAY_WITH_RED, PLAY_WITH_YELLOW, RED_TURN, YELLOW_TURN, BOARD_PADDING, ROW_SIZE, COL_SIZE, PIECE_SIZE, TEXT_STYLE } from '../constants';
 
-const WebGLRenderer = PIXI.WebGLRenderer;
+const Renderer = PIXI.autoDetectRenderer;
 const Container = PIXI.Container;
 const Sprite = PIXI.Sprite;
 const Texture = PIXI.Texture;
 const Text = PIXI.Text;
 const size = PIECE_SIZE * COL_SIZE;
-const renderer = new WebGLRenderer(size + BOARD_PADDING, size + BOARD_PADDING + 200,{ backgroundColor : 0x999999 });
+const renderer = new Renderer(size + BOARD_PADDING, size + BOARD_PADDING + 200,{ backgroundColor : 0x999999 });
 const stage = new Container();
 
 const animOffset = 20;
@@ -60,7 +60,7 @@ class App extends Component {
       return;
     }
 
-    if (playingNow !== RED_TURN || isAnimating) {
+    if (playingNow !== RED_TURN && this.props.bot || isAnimating) {
       return;
     }
 
@@ -68,7 +68,11 @@ class App extends Component {
       return;
     }
 
-    this.props.dispatch(playWithRed(target.col));
+    if(!(this.props.bot) && playingNow == YELLOW_TURN){
+      this.props.dispatch(playWithYellow(target.col));
+    } else{
+      this.props.dispatch(playWithRed(target.col));
+    }
   }
 
   getTextureByValue (type) {
@@ -147,7 +151,7 @@ class App extends Component {
         return;
       }
 
-      if (playingNow === YELLOW_TURN && !board.result) {
+      if (playingNow === YELLOW_TURN && !board.result && this.props.bot) {
         this.playWithYellow(board);
       }
       return;
@@ -283,11 +287,19 @@ class App extends Component {
     // console.log(stage, `children: ${stage.children.length}`);
     this.init(game);
     return (
-      <div className="app-page page-home">
+      <div className="main-container">
       </div>
     );
   }
 }
+
+App.propTypes = {
+  bot: PropTypes.bool
+};
+
+App.defaultProps = {
+  bot: true
+};
 
 export default connect((state) => {
   return {

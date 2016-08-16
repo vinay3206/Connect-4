@@ -250,7 +250,7 @@ export default class Game {
 
     this.result = {
       type,
-      game,
+      game: result
     };
   }
 }
