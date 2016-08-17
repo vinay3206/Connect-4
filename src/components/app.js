@@ -172,12 +172,13 @@ class App extends Component {
     }
 
     header = new Text('Connect-4', {
-      font: 'bold 40px Roboto',
-      fill: '#fff',
+      font: '32 px sans-serif',
+      fill: 'white',
       align: 'center',
       stroke: '#800000',
       strokeThickness: 10,
       lineJoin: 'round',
+      dropShadow:true
     });
 
     header.anchor.x = 0.5;
